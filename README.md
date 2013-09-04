@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Pcduino
 
 TODO: Write a gem description
@@ -27,3 +28,9 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+=======
+pcduino
+=======
+
+Ruby Gem to talk to pcduino's GPIO pins
+>>>>>>> ee30f6e89a8310aae21264e176b2b6fa005164c6
