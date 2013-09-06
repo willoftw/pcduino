@@ -6,10 +6,10 @@ require 'pcduino/version'
 Gem::Specification.new do |spec|
   spec.name          = "pcduino"
   spec.version       = Pcduino::VERSION
-  spec.authors       = Will Olner
-  spec.email         = William.olner@gmail.com
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.authors       = "Will Olner"
+  spec.email         = "William.olner@gmail.com"
+  spec.description   = "Control GPIO of Pcduino"
+  spec.summary       = "Control GPIO of Pcduino"
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 end

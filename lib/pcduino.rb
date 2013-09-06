@@ -1,5 +1,7 @@
 require "pcduino/version"
-
+require "pin"
 module Pcduino
-  # Your code goes here...
+  def self.hi
+    p "hello world"
+  end
 end
