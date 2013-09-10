@@ -19,6 +19,14 @@ describe Pin do
     it "should not raise an error for an incorrect pin" do
 	lambda { Pin.new(9) }.should_not raise_error
     end
+
+    it "should have the correct mode URI" do
+      @pin.mode_URI.should == "/sys/devices/virtual/misc/gpio/mode/gpio1" 
+    end
+
+    it "should have the correct status URI" do
+      @pin.status_URI.should == "/sys/devices/virtual/misc/gpio/pin/pin1"
+    end
  
   end
   describe "#write_to_file" do
@@ -36,9 +44,39 @@ describe Pin do
       @pin.set_as_input.should be_an_instance_of Pin
     end
 
-    it "should sucessfully write to its pin file" do
+    it "should sucessfully write to its pin mode file" do
      lambda { @pin.set_as_input }.should_not raise_error
     end
   end
 
+  describe "#set_as_input_pu" do
+    it "should return a pin object" do
+      @pin.set_as_input_pu.should be_an_instance_of Pin
+    end
+
+    it "should sucessfully write to its pin mode file" do
+     lambda { @pin.set_as_input_pu }.should_not raise_error
+    end
+  end
+
+  describe "#set_as_output" do
+    it "should return a pin object" do
+      @pin.set_as_input.should be_an_instance_of Pin
+    end
+
+    it "should sucessfully write to its pin mode file" do
+     lambda { @pin.set_as_output }.should_not raise_error
+    end
+  end
+  
+  describe "#write" do 
+    it "should not raise an error" do
+      lambda { @pin.write(Logic::HIGH) }.should_not raise_error
+    end
+
+    it "should not allow invalid values" do 
+      lambda { @pin.write(12) }.should raise_error
+      lambda { @pin.write(-12) }.should raise_error
+    end
+  end
 end

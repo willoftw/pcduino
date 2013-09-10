@@ -1,3 +1,4 @@
+
 class Pin
 
   attr_accessor :mode_URI,:status_URI,:pin,:input_value,:input_pu_value,:output_value
@@ -6,6 +7,7 @@ class Pin
     @status_URI = "/sys/devices/virtual/misc/gpio/pin/"
     @pin = pin_num
     @mode_URI = @mode_URI << "gpio" << @pin.to_s
+    @status_URI = @mode_URI << "pin" << @pin.to_s
     @input_value = 0
     @input_value_pu = 8
     @output_value = 1
@@ -36,6 +38,22 @@ class Pin
       self
     else
       raise "Error: couldnt write input_value to file"
+    end
+  end
+
+  def set_as_input_pu
+    if write_to_file(@input_value_pu,@mode_URI)
+      self
+    else
+      raise "Error: couldnt write input_value to file"
+    end
+  end
+
+  def write(value)
+    if value.is_a? Integer and value == 0 or value == 1
+      #do stuff
+    else
+      raise "invalid value passed"
     end
   end
 
