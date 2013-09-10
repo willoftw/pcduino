@@ -1,11 +1,25 @@
 require "spec_helper"
 
 describe Pin do
-  it "should return 1 for a successful pin connection to pin 1" do
-    Pin.new(1) == 1
+
+  before :each do
+    @pin = Pin.new 1
   end
 
-  it "should return 0 for a no argument new" do
-    Pin.new == 1
+  describe "#new" do
+
+    it "should return a pin object" do
+      @pin.should be_an_instance_of Pin
+    end
+    
+    it "should raise an error for an incorrect pin number" do
+      lambda { Pin.new(99) }.should raise_error(RuntimeError)
+    end
+
+    it "should not raise an error for an incorrect pin" do
+	lambda { Pin.new(9) }.should_not raise_error(RuntimeError)
+    end
+ 
   end
+
 end
