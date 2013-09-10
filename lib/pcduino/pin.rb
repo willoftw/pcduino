@@ -1,7 +1,7 @@
 
 class Pin
 
-  attr_accessor :mode_URI,:status_URI,:pin,:input_value,:input_pu_value,:output_value
+  attr_accessor :mode_URI,:status_URI,:pin,:input_value,:input_pu_value,:output_value,:mode
   def initialize(pin_num)
     @mode_URI = "/sys/devices/virtual/misc/gpio/mode/"
     @status_URI = "/sys/devices/virtual/misc/gpio/pin/"
@@ -27,6 +27,7 @@ class Pin
 
   def set_as_output
     if write_to_file(@output_value,@mode_URI)
+      @mode=@output_value
       self
     else
       raise "Error: couldnt write output_value to file"
@@ -35,6 +36,7 @@ class Pin
 
   def set_as_input
     if write_to_file(@input_value,@mode_URI)
+      @mode=@input_value
       self
     else
       raise "Error: couldnt write input_value to file"
@@ -43,6 +45,7 @@ class Pin
 
   def set_as_input_pu
     if write_to_file(@input_value_pu,@mode_URI)
+      @mode=@input_pu_value
       self
     else
       raise "Error: couldnt write input_value to file"
@@ -67,6 +70,27 @@ class Pin
       file.close unless file == nil
     end
     true
+  end
+
+  def read_from_file(file)
+    begin
+      file = File.open(file)
+      line = file.gets
+    rescue IOError => e
+      raise "error reading from file: " + file
+    ensure
+      file.close unless file == nil
+    end
+    line.to_i
+
+  end
+
+  def read
+    if @mode == 1
+      raise "Error cant call read on an output"
+    else
+      read_from_file(@status_URI)
+    end
   end 
 end
 

@@ -79,4 +79,23 @@ describe Pin do
       lambda { @pin.write(-12) }.should raise_error
     end
   end
+
+  describe "#read_from_file" do
+    it "should raise error for a non exsistant file" do
+      lambda { @pin.read_from_file("nonexisitantfile.txt") }.should raise_error
+    end
+  end
+
+  describe "#read" do
+    it "should return a value for sucessful read when set as input" do
+      @pin.set_as_input
+      @pin.read.should be_an(Integer)
+    end
+
+    it "should raise an error when set as output" do
+      @pin.set_as_output
+      lambda { @pin.read }.should raise_error
+    end
+
+  end
 end
