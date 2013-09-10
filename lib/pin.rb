@@ -1,11 +1,14 @@
 class Pin
 
-  attr_accessor :mode_URI,:status_URI,:pin
+  attr_accessor :mode_URI,:status_URI,:pin,:input_value,:input_pu_value,:output_value
   def initialize(pin_num)
     @mode_URI = "/sys/devices/virtual/misc/gpio/mode/"
     @status_URI = "/sys/devices/virtual/misc/gpio/pin/"
     @pin = pin_num
     @mode_URI = @mode_URI << "gpio" << @pin.to_s
+    @input_value = 0
+    @input_value_pu = 8
+    @output_value = 1
 
     if @pin < 0 or @pin > 17
       raise "inaccessable pin specified"
@@ -18,6 +21,34 @@ class Pin
     else
       raise "Error file:" + path +  " doesnt exist"
     end
+  end
+
+  def set_as_output
+    if write_to_file(@output_value,@mode_URI)
+      self
+    else
+      raise "Error: couldnt write output_value to file"
+    end
+  end
+
+  def set_as_input
+    if write_to_file(@input_value,@mode_URI)
+      self
+    else
+      raise "Error: couldnt write input_value to file"
+    end
+  end
+
+  def write_to_file (value,path)
+    begin
+      file = File.open(path, "w")
+      file.write(value) 
+    rescue IOError => e
+      raise "error writing to file"
+    ensure
+      file.close unless file == nil
+    end
+    true
   end 
 end
 
