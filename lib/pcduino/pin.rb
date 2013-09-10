@@ -7,7 +7,7 @@ class Pin
     @status_URI = "/sys/devices/virtual/misc/gpio/pin/"
     @pin = pin_num
     @mode_URI = @mode_URI << "gpio" << @pin.to_s
-    @status_URI = @mode_URI << "pin" << @pin.to_s
+    @status_URI = @status_URI << "pin" << @pin.to_s
     @input_value = 0
     @input_value_pu = 8
     @output_value = 1

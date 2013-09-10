@@ -1,5 +1,5 @@
 require "pcduino/version"
-require "pin"
+require "pcduino/pin"
 
 module Pcduino
   def self.hi
