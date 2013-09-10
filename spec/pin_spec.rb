@@ -13,11 +13,11 @@ describe Pin do
     end
     
     it "should raise an error for an incorrect pin number" do
-      lambda { Pin.new(99) }.should raise_error(RuntimeError)
+      lambda { Pin.new(99) }.should raise_error
     end
 
     it "should not raise an error for an incorrect pin" do
-	lambda { Pin.new(9) }.should_not raise_error(RuntimeError)
+	lambda { Pin.new(9) }.should_not raise_error
     end
  
   end
