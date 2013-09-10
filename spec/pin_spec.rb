@@ -25,7 +25,7 @@ describe Pin do
     end
 
     it "should have the correct status URI" do
-      @pin.status_URI.should == "/sys/devices/virtual/misc/gpio/pin/pin1"
+      @pin.status_URI.should == "/sys/devices/virtual/misc/gpio/pin/gpio1"
     end
  
   end

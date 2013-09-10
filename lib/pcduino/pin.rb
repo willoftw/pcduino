@@ -7,7 +7,7 @@ class Pin
     @status_URI = "/sys/devices/virtual/misc/gpio/pin/"
     @pin = pin_num
     @mode_URI = @mode_URI << "gpio" << @pin.to_s
-    @status_URI = @status_URI << "pin" << @pin.to_s
+    @status_URI = @status_URI << "gpio" << @pin.to_s
     @input_value = 0
     @input_value_pu = 8
     @output_value = 1
@@ -51,7 +51,7 @@ class Pin
 
   def write(value)
     if value.is_a? Integer and value == 0 or value == 1
-      #do stuff
+      write_to_file(value.to_s,@status_URI)
     else
       raise "invalid value passed"
     end
