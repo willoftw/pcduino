@@ -1,11 +1,15 @@
 require "spec_helper"
 
 describe Pin do
-
+  @os = RUBY_PLATFORM
+  @on_pcduino =true
   before :all do
     @pin = Pin.new 1
   end
 
+  if @os.include?("darwin")
+    @on_pcduino = false
+  end
   describe "#new" do
 
     it "should return a pin object" do

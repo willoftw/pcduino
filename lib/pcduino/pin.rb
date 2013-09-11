@@ -34,8 +34,8 @@ class Pin
     end
   end
 
-  def set_as_input
-    if write_to_file(@input_value,@mode_URI)
+  def set_as_input(file = @mode_URI)
+    if write_to_file(@input_value,file)
       @mode=@input_value
       self
     else
