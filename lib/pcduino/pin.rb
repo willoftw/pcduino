@@ -55,7 +55,9 @@ class Pin
 
   def write(value)
     if value.is_a? Integer and value == 0 or value == 1
-      set_as_output
+      if @mode==@input_pu_value
+        set_as_output
+      end
       write_to_file(value.to_s,@status_URI)
     else
       raise "invalid value passed"

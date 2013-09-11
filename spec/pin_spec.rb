@@ -9,9 +9,7 @@ describe Pin do
 
   if @os.include?("darwin")
     $on_pcduino = false
-    p 'includes darwin'
   else
-    p 'doesnt include darwin'
     $on_pcduino = true
   end
   describe "#new" do
