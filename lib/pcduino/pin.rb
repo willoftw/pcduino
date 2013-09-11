@@ -11,6 +11,7 @@ class Pin
     @input_value = 0
     @input_value_pu = 8
     @output_value = 1
+    @state = 0;
 
     if @pin < 0 or @pin > 17
       raise "inaccessable pin specified"
@@ -54,6 +55,7 @@ class Pin
 
   def write(value)
     if value.is_a? Integer and value == 0 or value == 1
+      set_as_output
       write_to_file(value.to_s,@status_URI)
     else
       raise "invalid value passed"
@@ -86,11 +88,18 @@ class Pin
   end
 
   def read
-    if @mode == 1
-      raise "Error cant call read on an output"
-    else
+      set_as_input
       read_from_file(@status_URI)
-    end
   end 
+
+  def toggle
+    if @state == 0
+      @state = 1
+    else
+      @state = 0
+    end
+    write @state
+    
+  end
 end
 

@@ -127,14 +127,29 @@ describe Pin do
         @pin.read.should be_an(Integer)
       end
 
-      it "should raise an error when set as output" do
-        @pin.set_as_output
-        lambda { @pin.read }.should raise_error
-      end
     else
       it "should return an error for unsucessful read when set as input" do
         #@pin.set_as_input
         lambda { @pin.read }.should raise_error
+      end
+    end
+
+  end
+
+  describe "#toggle" do
+    if $on_pcduino
+      it "should return true for succesful toggle" do
+        @pin.read.should be_true
+      end
+
+      it "should not raise an error" do
+        lambda { @pin.toggle }.should_not raise_error       
+      end
+
+    else
+      it "should return an error for toggle" do
+        #@pin.set_as_input
+        lambda { @pin.toggle }.should raise_error
       end
     end
 
