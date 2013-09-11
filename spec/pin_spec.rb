@@ -2,13 +2,17 @@ require "spec_helper"
 
 describe Pin do
   @os = RUBY_PLATFORM
-  @on_pcduino =true
   before :all do
     @pin = Pin.new 1
+    $on_pcduino = false
   end
 
   if @os.include?("darwin")
-    @on_pcduino = false
+    $on_pcduino = false
+    p 'includes darwin'
+  else
+    p 'doesnt include darwin'
+    $on_pcduino = true
   end
   describe "#new" do
 
@@ -44,7 +48,7 @@ describe Pin do
   end
 
   describe "#set_as_input" do
-    if @on_pcduino
+    if $on_pcduino
       it "should return a pin object on pcduino" do
         @pin.set_as_input.should be_an_instance_of Pin
       end
@@ -60,7 +64,7 @@ describe Pin do
   end
 
   describe "#set_as_input_pu" do
-    if @on_pcduino
+    if $on_pcduino
       it "should return a pin object" do
         @pin.set_as_input_pu.should be_an_instance_of Pin
       end
@@ -76,7 +80,7 @@ describe Pin do
   end
 
   describe "#set_as_output" do
-    if @on_pcduino
+    if $on_pcduino
       it "should return a pin object" do
         @pin.set_as_input.should be_an_instance_of Pin
       end
@@ -92,7 +96,7 @@ describe Pin do
   end
   
   describe "#write" do 
-    if @on_pcduino
+    if $on_pcduino
       it "should not raise an error" do
         lambda { @pin.write(Logic::HIGH) }.should_not raise_error
       end
@@ -117,7 +121,7 @@ describe Pin do
   end
 
   describe "#read" do
-    if @on_pcduino
+    if $on_pcduino
       it "should return a value for sucessful read when set as input" do
         @pin.set_as_input
         @pin.read.should be_an(Integer)
@@ -136,3 +140,4 @@ describe Pin do
 
   end
 end
+
