@@ -44,44 +44,70 @@ describe Pin do
   end
 
   describe "#set_as_input" do
-    it "should return a pin object" do
-      @pin.set_as_input.should be_an_instance_of Pin
-    end
+    if @on_pcduino
+      it "should return a pin object on pcduino" do
+        @pin.set_as_input.should be_an_instance_of Pin
+      end
 
-    it "should sucessfully write to its pin mode file" do
-     lambda { @pin.set_as_input }.should_not raise_error
+      it "should sucessfully write to its pin mode input file on pcduino" do
+       lambda { @pin.set_as_input }.should_not raise_error
+      end
+    else
+      it "should not sucessfully write to its pin mode file when not on pcduino" do
+       lambda { @pin.set_as_input }.should raise_error
+      end
     end
   end
 
   describe "#set_as_input_pu" do
-    it "should return a pin object" do
-      @pin.set_as_input_pu.should be_an_instance_of Pin
-    end
+    if @on_pcduino
+      it "should return a pin object" do
+        @pin.set_as_input_pu.should be_an_instance_of Pin
+      end
 
-    it "should sucessfully write to its pin mode file" do
-     lambda { @pin.set_as_input_pu }.should_not raise_error
+      it "should sucessfully write to its pin mode pu file" do
+        lambda { @pin.set_as_input_pu }.should_not raise_error
+      end
+    else
+      it "should not sucessfully write to its pin mode input_pu file when not on pcduino" do
+       lambda { @pin.set_as_input_pu }.should raise_error
+      end
     end
   end
 
   describe "#set_as_output" do
-    it "should return a pin object" do
-      @pin.set_as_input.should be_an_instance_of Pin
-    end
+    if @on_pcduino
+      it "should return a pin object" do
+        @pin.set_as_input.should be_an_instance_of Pin
+      end
 
-    it "should sucessfully write to its pin mode file" do
-     lambda { @pin.set_as_output }.should_not raise_error
+      it "should sucessfully write to its pin mode file" do
+       lambda { @pin.set_as_output }.should_not raise_error
+      end
+    else
+      it "should not sucessfully write to its pin mode output file when not on pcduino" do
+       lambda { @pin.set_as_output }.should raise_error
+      end
     end
   end
   
   describe "#write" do 
-    it "should not raise an error" do
-      lambda { @pin.write(Logic::HIGH) }.should_not raise_error
+    if @on_pcduino
+      it "should not raise an error" do
+        lambda { @pin.write(Logic::HIGH) }.should_not raise_error
+      end
+
+      it "should not allow invalid values" do 
+        lambda { @pin.write(12) }.should raise_error
+        lambda { @pin.write(-12) }.should raise_error
+      end
+
+    else
+      it "should raise an error" do
+        lambda { @pin.write(Logic::HIGH) }.should raise_error
+      end
     end
 
-    it "should not allow invalid values" do 
-      lambda { @pin.write(12) }.should raise_error
-      lambda { @pin.write(-12) }.should raise_error
-    end
   end
 
   describe "#read_from_file" do
@@ -91,14 +117,21 @@ describe Pin do
   end
 
   describe "#read" do
-    it "should return a value for sucessful read when set as input" do
-      @pin.set_as_input
-      @pin.read.should be_an(Integer)
-    end
+    if @on_pcduino
+      it "should return a value for sucessful read when set as input" do
+        @pin.set_as_input
+        @pin.read.should be_an(Integer)
+      end
 
-    it "should raise an error when set as output" do
-      @pin.set_as_output
-      lambda { @pin.read }.should raise_error
+      it "should raise an error when set as output" do
+        @pin.set_as_output
+        lambda { @pin.read }.should raise_error
+      end
+    else
+      it "should return an error for unsucessful read when set as input" do
+        #@pin.set_as_input
+        lambda { @pin.read }.should raise_error
+      end
     end
 
   end
