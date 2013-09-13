@@ -5,6 +5,7 @@ module Pcduino
   def self.hi
     p "hello world"
   end
+require "pcduino/pin"
 end
 
 module Logic

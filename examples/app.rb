@@ -10,16 +10,16 @@ get '/' do
 end
 
 get '/control' do
-  haml :whois
+  haml :control
 end
 
 post '/control' do
   @host = params[:host]
-  my_pin = Pin.new 13
-  @results = my_pin.toggle
+  @my_pin = Pin.new 13
+  @results = @my_pin.write(@host.to_i)
   
 
-  haml :whois
+  haml :control
 end
 
 
