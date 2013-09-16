@@ -1,7 +1,25 @@
 <<<<<<< HEAD
 # Pcduino
 
-TODO: Write a gem description
+A simple ruby gem to talk to the pins of a pcduino with very little code.
+
+An example would be blink (can be found in examples), the code looks like this:
+
+require 'pcduino'
+
+blink_pin = Pin.new 13
+
+while true do
+  blink_pin.toggle
+end 
+
+
+Combining this gem with sinatra can make for very easy to undersand and simple home automation servers, an
+example of this can be found in the examples folder!
+
+
+Have fun!
+
 
 ## Installation
 
