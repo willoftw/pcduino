@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = "Will Olner"
   spec.email         = "William.olner@gmail.com"
   spec.description   = "Control GPIO of Pcduino"
-  spec.summary       = "Control GPIO of Pcduino"
-  spec.homepage      = ""
+  spec.summary       = "Control GPIO of Pcduino using Ruby"
+  spec.homepage      = "http://github.com/willoftw/pcduino"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

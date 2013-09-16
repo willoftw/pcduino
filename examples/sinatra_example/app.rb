@@ -45,7 +45,7 @@ __END__
       %a(href='/control') Control Stuff!
 
 @@ control
-%h3 Whois
+%h3 Controll Stuff yo!
 %form(action='/control' method='POST')
   %input(type='text' name='host' value=@output)
   %input(type='submit')
